@@ -9,6 +9,7 @@
 import Foundation
 
 
-class LogPocket: FileWritable {
+class LogPocket: FileWritable, TextWrapable {
+
     var defaultFilePath: String? = ""
 }

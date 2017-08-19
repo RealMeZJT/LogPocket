@@ -16,17 +16,15 @@ class ViewController: UIViewController {
         var path = StandardDirectory().logPocketHomeDir
         path = path.appendingPathComponent("log.txt")
         print(path.path)
-        var pocket = LogPocket()
-        pocket.defaultFilePath =  path.path ;
-        pocket.write("protocol oriented program")
+        let pocket = LogPocket()
+        pocket.defaultFilePath =  path.path;
+        pocket.write("protocol oriented program2")
         
         pocket.append("hello")
         
-        pocket.push("start\n")
+        pocket.push("push!!!")
     }
     
-
-
 
 }
 

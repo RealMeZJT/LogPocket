@@ -11,6 +11,7 @@
 		F261F7421F4579FB00D4B40D /* LogPocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F2AFC9F41F432A18004ED659 /* LogPocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F261F7461F457E7500D4B40D /* LogPocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFCA0E1F432A8B004ED659 /* LogPocket.swift */; };
 		F261F7471F457E7500D4B40D /* FileExplore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFCA271F433BD8004ED659 /* FileExplore.swift */; };
+		F27C139F1F4694CB00126FD2 /* TextWrapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27C139E1F4694CB00126FD2 /* TextWrapable.swift */; };
 		F2AFC9FE1F432A19004ED659 /* LogPocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AFC9F41F432A18004ED659 /* LogPocket.framework */; };
 		F2AFCA031F432A19004ED659 /* LogPocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFCA021F432A19004ED659 /* LogPocketTests.swift */; };
 		F2AFCA051F432A19004ED659 /* LogPocket.h in Headers */ = {isa = PBXBuildFile; fileRef = F2AFC9F71F432A18004ED659 /* LogPocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -21,6 +22,11 @@
 		F2AFCA1F1F4332A4004ED659 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2AFCA1E1F4332A4004ED659 /* Assets.xcassets */; };
 		F2AFCA221F4332A4004ED659 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2AFCA201F4332A4004ED659 /* LaunchScreen.storyboard */; };
 		F2AFCA281F433BD8004ED659 /* FileExplore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFCA271F433BD8004ED659 /* FileExplore.swift */; };
+		F2E671701F46F0B400A73916 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6716F1F46F0B400A73916 /* DeviceInfo.swift */; };
+		F2E671711F46F0B400A73916 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E6716F1F46F0B400A73916 /* DeviceInfo.swift */; };
+		F2E671721F48341D00A73916 /* TextWrapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27C139E1F4694CB00126FD2 /* TextWrapable.swift */; };
+		F2E671741F48356600A73916 /* StandardDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E671731F48356600A73916 /* StandardDirectory.swift */; };
+		F2E671751F48356600A73916 /* StandardDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E671731F48356600A73916 /* StandardDirectory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F27C139E1F4694CB00126FD2 /* TextWrapable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextWrapable.swift; sourceTree = "<group>"; };
 		F2AFC9F41F432A18004ED659 /* LogPocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LogPocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AFC9F71F432A18004ED659 /* LogPocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogPocket.h; sourceTree = "<group>"; };
 		F2AFC9F81F432A18004ED659 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +77,8 @@
 		F2AFCA211F4332A4004ED659 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2AFCA231F4332A4004ED659 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2AFCA271F433BD8004ED659 /* FileExplore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileExplore.swift; sourceTree = "<group>"; };
+		F2E6716F1F46F0B400A73916 /* DeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
+		F2E671731F48356600A73916 /* StandardDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardDirectory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +134,9 @@
 				F2AFCA101F432A93004ED659 /* Support */,
 				F2AFCA0E1F432A8B004ED659 /* LogPocket.swift */,
 				F2AFCA271F433BD8004ED659 /* FileExplore.swift */,
+				F27C139E1F4694CB00126FD2 /* TextWrapable.swift */,
+				F2E6716F1F46F0B400A73916 /* DeviceInfo.swift */,
+				F2E671731F48356600A73916 /* StandardDirectory.swift */,
 			);
 			path = LogPocket;
 			sourceTree = "<group>";
@@ -309,8 +321,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F27C139F1F4694CB00126FD2 /* TextWrapable.swift in Sources */,
 				F2AFCA0F1F432A8B004ED659 /* LogPocket.swift in Sources */,
 				F2AFCA281F433BD8004ED659 /* FileExplore.swift in Sources */,
+				F2E671741F48356600A73916 /* StandardDirectory.swift in Sources */,
+				F2E671701F46F0B400A73916 /* DeviceInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,10 +341,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2E671721F48341D00A73916 /* TextWrapable.swift in Sources */,
+				F2E671751F48356600A73916 /* StandardDirectory.swift in Sources */,
 				F261F7461F457E7500D4B40D /* LogPocket.swift in Sources */,
 				F261F7471F457E7500D4B40D /* FileExplore.swift in Sources */,
 				F2AFCA1A1F4332A4004ED659 /* ViewController.swift in Sources */,
 				F2AFCA181F4332A4004ED659 /* AppDelegate.swift in Sources */,
+				F2E671711F46F0B400A73916 /* DeviceInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

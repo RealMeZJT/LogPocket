@@ -40,28 +40,6 @@ extension FileExplore {
 }
 
 
-
-struct StandardDirectory : FileExplore {
-    var logPocketHomeDir: URL {
-        let dir = applicationSupportDir.appendingPathComponent("logpocket", isDirectory: true);
-        createDirectoryIfNotExists(dir.path);
-        return dir
-    }
-    
-    var applicationSupportDir: URL {
-        let fm = FileManager.default;
-        let dirs = fm.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
-        
-        let dir = dirs.first?.path ?? ""
-        
-        if (!directoryExists(atPath: dir)) {
-            createDirectory(dir)
-        }
-        
-        return URL(fileURLWithPath: dir)
-    }
-}
-
 protocol FileWritable {
     var encoding:String.Encoding { get }
     var defaultFilePath:String? { get set }
