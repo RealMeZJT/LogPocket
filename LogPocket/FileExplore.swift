@@ -9,12 +9,19 @@
 import Foundation
 
 protocol FileExplore {
+    func fileExists(atPaht filePath: String) -> Bool
     func directoryExists(atPath dirPath: String) -> Bool
     func createDirectory(_ dirPath: String)
     func createDirectoryIfNotExists(_ dirPath: String)
 }
 
 extension FileExplore {
+    
+    func fileExists(atPaht filePath: String) -> Bool {
+        let fm = FileManager.default
+        return fm.fileExists(atPath: filePath)
+    }
+    
     func directoryExists(atPath dirPath: String) -> Bool {
         let fm = FileManager.default
         var isDir: ObjCBool = true;
@@ -39,6 +46,26 @@ extension FileExplore {
     }
 }
 
+struct StandardDirectory : FileExplore {
+    var logPocketHomeDir: URL {
+        let dir = applicationSupportDir.appendingPathComponent("logpocket", isDirectory: true);
+        createDirectoryIfNotExists(dir.path);
+        return dir
+    }
+    
+    var applicationSupportDir: URL {
+        let fm = FileManager.default;
+        let dirs = fm.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+        
+        let dir = dirs.first?.path ?? ""
+        
+        if (!directoryExists(atPath: dir)) {
+            createDirectory(dir)
+        }
+        
+        return URL(fileURLWithPath: dir)
+    }
+}
 
 protocol FileWritable {
     var encoding:String.Encoding { get }
@@ -81,6 +108,10 @@ extension FileWritable {
     }
     
     func append(_ contents:String,toFile filePath:String) {
+        if (!FileManager.default.fileExists(atPath: filePath)) {
+            write(contents, toFile: filePath)
+            return
+        }
         let fileHandle = FileHandle(forUpdatingAtPath: filePath)
         fileHandle?.seekToEndOfFile()
         fileHandle?.write(contents.data(using: encoding)!)

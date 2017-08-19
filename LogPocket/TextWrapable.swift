@@ -25,11 +25,11 @@ protocol TextWrapable {
 extension TextWrapable {
 
     var separatorBegin: String {
-        return ">>>>>"
+        return "<<<<<"
     }
     
     var separatorEnd: String {
-        return "<<<<<"
+        return ">>>>>"
     }
     
     func wrap(contents: String, withOptions options:[TextWrapOptions]) -> String {
@@ -38,25 +38,27 @@ extension TextWrapable {
         
         if options.contains(.startTimeSecond) {
             let time = String(format:"%f", Date().timeIntervalSince1970)
-            symbols += time;
+            symbols += time + " | "
         }
         
         if options.contains(.startTimeHumanRead) {
             let time = Date().timeIntervalSince1970.description
-            symbols += time
+            symbols += time + " | "
         }
         
         if options.contains(.systemInfo) {
             let systemInfo = DeviceInfo.sysemInfo()
-            symbols += systemInfo
+            symbols += systemInfo + " | "
         }
         
         if options.contains(.appInfo) {
             let appInfo = DeviceInfo.appVersion() + DeviceInfo.appBuildVersion()
-            symbols += appInfo
+            symbols += appInfo + " | "
         }
-        symbols += "\n"
-        result = separatorBegin + symbols + separatorEnd
+
+        result = separatorBegin + symbols + "\n" +
+                        contents + "\n" +
+                    separatorEnd + "\n"
         return result
     }
     

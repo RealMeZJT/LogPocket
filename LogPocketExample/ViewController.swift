@@ -13,16 +13,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var path = StandardDirectory().logPocketHomeDir
-        path = path.appendingPathComponent("log.txt")
-        print(path.path)
+ 
         let pocket = LogPocket()
-        pocket.defaultFilePath =  path.path;
-        pocket.write("protocol oriented program2")
+
+        pocket.df("protocol oriented program2")
         
-        pocket.append("hello")
+        pocket.df("hello")
         
-        pocket.push("push!!!")
+        pocket.df("push!!!")
     }
     
 
