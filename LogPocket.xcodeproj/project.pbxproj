@@ -27,6 +27,8 @@
 		F2E671721F48341D00A73916 /* TextWrapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27C139E1F4694CB00126FD2 /* TextWrapable.swift */; };
 		F2E671771F48458D00A73916 /* Limitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E671761F48458D00A73916 /* Limitable.swift */; };
 		F2E671781F48458D00A73916 /* Limitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E671761F48458D00A73916 /* Limitable.swift */; };
+		F2E6717A1F4AA40400A73916 /* StandardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E671791F4AA40400A73916 /* StandardPath.swift */; };
+		F2E6717B1F4AA40400A73916 /* StandardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E671791F4AA40400A73916 /* StandardPath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,7 @@
 		F2AFCA271F433BD8004ED659 /* FileExplore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileExplore.swift; sourceTree = "<group>"; };
 		F2E6716F1F46F0B400A73916 /* DeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		F2E671761F48458D00A73916 /* Limitable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Limitable.swift; sourceTree = "<group>"; };
+		F2E671791F4AA40400A73916 /* StandardPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardPath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,7 @@
 				F27C139E1F4694CB00126FD2 /* TextWrapable.swift */,
 				F2E6716F1F46F0B400A73916 /* DeviceInfo.swift */,
 				F2E671761F48458D00A73916 /* Limitable.swift */,
+				F2E671791F4AA40400A73916 /* StandardPath.swift */,
 			);
 			path = LogPocket;
 			sourceTree = "<group>";
@@ -322,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F27C139F1F4694CB00126FD2 /* TextWrapable.swift in Sources */,
+				F2E6717A1F4AA40400A73916 /* StandardPath.swift in Sources */,
 				F2E671771F48458D00A73916 /* Limitable.swift in Sources */,
 				F2AFCA0F1F432A8B004ED659 /* LogPocket.swift in Sources */,
 				F2AFCA281F433BD8004ED659 /* FileExplore.swift in Sources */,
@@ -344,6 +349,7 @@
 				F2E671721F48341D00A73916 /* TextWrapable.swift in Sources */,
 				F261F7461F457E7500D4B40D /* LogPocket.swift in Sources */,
 				F261F7471F457E7500D4B40D /* FileExplore.swift in Sources */,
+				F2E6717B1F4AA40400A73916 /* StandardPath.swift in Sources */,
 				F2AFCA1A1F4332A4004ED659 /* ViewController.swift in Sources */,
 				F2E671781F48458D00A73916 /* Limitable.swift in Sources */,
 				F2AFCA181F4332A4004ED659 /* AppDelegate.swift in Sources */,

@@ -9,9 +9,18 @@
 import Foundation
 
 
-class LogPocket: FileWritable, TextWrapable {
-
+class LogPocket: FileWritable, TextWrapable, DiskSpaceLimitable {
+    static let MAX_SINGLE_FILE_SIZE_KB:Int64 = 1 * 1024
+    //MARK: - FileWritable
     var defaultFilePath: String? = ""
+    
+    
+    //MARK: - DiskSpaceLimitable
+    var maxDiskSpaceKB: Int64 = 2 * 1024;
+    var logsHomeDir: String = StandardDirectory().logPocketHomeDir.path
+    
+    //MARK: - Self method
+    var currentFile:String = ""
     
     //log to terminal
     func d(_ contents: String) {
@@ -36,11 +45,42 @@ class LogPocket: FileWritable, TextWrapable {
         }
         
         if (f) {
-            var path = StandardDirectory().logPocketHomeDir
-            path.appendPathComponent("log.txt")
-            append(wrapContents, toFile: path.path)
-            print(path.path)
+            currentFile = fileToLog()
+            append(wrapContents, toFile: currentFile)
+            if isOutOfLimit() {
+                removeOldestFile()
+            }
+            print(currentFile)
         }
         
     }
+    
+    private func fileToLog() -> String {
+        //use current file first
+        if (fileExists(atPath: currentFile) && !isOutOfSize(currentFile)) {
+            return currentFile
+        }
+        
+        //use lastestFile
+        var lastestFilePath: String?
+        do {
+            lastestFilePath = try lastestFile(atDir: StandardDirectory().logPocketHomeDir.path)
+        } catch let error {
+            print(error)
+        }
+        
+        if lastestFilePath != nil
+            && fileExists(atPath: lastestFilePath!)
+            && !isOutOfSize(lastestFilePath!) {
+            return lastestFilePath!
+        }
+        
+        //use new file
+        return StandardLogFile().uniqueFilePath
+    }
+    
+    private func isOutOfSize(_ filePath: String) -> Bool {
+        return (sizeKB(atPath: filePath) > LogPocket.MAX_SINGLE_FILE_SIZE_KB)
+    }
+    
 }

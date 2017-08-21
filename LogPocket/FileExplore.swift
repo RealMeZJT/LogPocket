@@ -8,18 +8,41 @@
 
 import Foundation
 
+//MARK: - FileExplore
 protocol FileExplore {
-    func fileExists(atPaht filePath: String) -> Bool
+    func fileExists(atPath filePath: String) -> Bool
+    func deleteFile(atPath filePath: String) -> Bool
+    func isDirectory(atPath filePath: String) -> Bool
     func directoryExists(atPath dirPath: String) -> Bool
     func createDirectory(_ dirPath: String)
     func createDirectoryIfNotExists(_ dirPath: String)
+    func sizeKB(atPath path: String) -> Int64
+    func oldestFile(atDir dirPath: String) throws -> String?
+    func lastestFile(atDir dirPath: String) throws -> String?
 }
 
 extension FileExplore {
     
-    func fileExists(atPaht filePath: String) -> Bool {
+    func fileExists(atPath filePath: String) -> Bool {
         let fm = FileManager.default
         return fm.fileExists(atPath: filePath)
+    }
+    
+    func deleteFile(atPath filePath: String) -> Bool {
+        do {
+            try FileManager.default.removeItem(atPath: filePath)
+        } catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+            return false
+        }
+        return true
+    }
+    
+    func isDirectory(atPath filePath: String) -> Bool {
+        let fm = FileManager.default
+        var isDir: ObjCBool = false
+        fm.fileExists(atPath: filePath, isDirectory: &isDir)
+        return isDir.boolValue
     }
     
     func directoryExists(atPath dirPath: String) -> Bool {
@@ -44,29 +67,81 @@ extension FileExplore {
             createDirectory(dirPath);
         }
     }
-}
-
-struct StandardDirectory : FileExplore {
-    var logPocketHomeDir: URL {
-        let dir = applicationSupportDir.appendingPathComponent("logpocket", isDirectory: true);
-        createDirectoryIfNotExists(dir.path);
-        return dir
-    }
     
-    var applicationSupportDir: URL {
-        let fm = FileManager.default;
-        let dirs = fm.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+    func sizeKB(atPath path: String) -> Int64 {
+        var kb: Int64 = 0
         
-        let dir = dirs.first?.path ?? ""
-        
-        if (!directoryExists(atPath: dir)) {
-            createDirectory(dir)
+        let fm = FileManager.default
+        if isDirectory(atPath: path) {
+            do {
+                let contents = try fm.contentsOfDirectory(atPath: path)
+                for content in contents {
+                    var contentFullPath = URL(fileURLWithPath: path)
+                    contentFullPath.appendPathComponent(content)
+                    kb += sizeKB(atPath: contentFullPath.path)
+                }
+            } catch let error {
+                print(error)
+            }
+        } else if (fileExists(atPath: path)) {
+            do {
+                let dic = try fm.attributesOfItem(atPath: path)
+                kb += (dic[FileAttributeKey.size] as! NSNumber).int64Value / 1024
+            } catch let error as NSError {
+                print("Ooops! Something went wrong: \(error)")
+            }
         }
         
-        return URL(fileURLWithPath: dir)
+        return kb
+    }
+    
+    func oldestFile(atDir dirPath: String) throws -> String? {
+        return try extremeModifiedDateFile(atDir: dirPath).oldest
+    }
+    
+    func lastestFile(atDir dirPath: String) throws -> String? {
+        return try extremeModifiedDateFile(atDir: dirPath).lastest
+    }
+    
+
+    func extremeModifiedDateFile(atDir dirPath: String) throws -> (lastest:String?,oldest:String?) {
+        assert(directoryExists(atPath: dirPath), "FileManager.oldestFile() should pass a dirctory path")
+        //TODO: 优化。目前太多强制转类型。
+        if (!directoryExists(atPath: dirPath)) {
+            return (nil,nil)
+        }
+        
+        let dirUrl = URL(fileURLWithPath:dirPath)
+        
+        var oldestFilePath = ""
+        var lastedFilePaht = ""
+        let fm = FileManager.default
+        let enumerator = fm.enumerator(at: dirUrl, includingPropertiesForKeys: [URLResourceKey.contentModificationDateKey])
+        
+        try fm.attributesOfFileSystem(forPath: dirPath)
+        var oldestModifiedTime: TimeInterval = NSDate().timeIntervalSince1970
+        var lastestModifiedTime: TimeInterval = 0
+        for (_,object) in enumerator!.enumerated() {
+            guard let fileURL = object as? NSURL else {assert(false)}
+            var modificationDateResource: AnyObject?
+            try fileURL.getResourceValue(&modificationDateResource, forKey: URLResourceKey.contentModificationDateKey)
+            let tempTime = modificationDateResource?.timeIntervalSince1970 ?? NSDate().timeIntervalSince1970
+            if (oldestModifiedTime > tempTime) {
+                oldestModifiedTime = tempTime
+                oldestFilePath = fileURL.path!
+            }
+            
+            if (lastestModifiedTime < tempTime) {
+                lastestModifiedTime = tempTime
+                lastedFilePaht = fileURL.path!
+            }
+        }
+        
+        return (lastedFilePaht,oldestFilePath)
     }
 }
 
+//MARK: - FileWritable
 protocol FileWritable {
     var encoding:String.Encoding { get }
     var defaultFilePath:String? { get set }

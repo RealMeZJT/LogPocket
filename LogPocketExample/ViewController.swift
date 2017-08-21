@@ -15,12 +15,14 @@ class ViewController: UIViewController {
         
  
         let pocket = LogPocket()
-
-        pocket.df("protocol oriented program2")
+        while true {
+            pocket.df("protocol oriented program2")
+            
+            pocket.df("hello")
+            
+            pocket.df("push!!!")
+        }
         
-        pocket.df("hello")
-        
-        pocket.df("push!!!")
     }
     
 
